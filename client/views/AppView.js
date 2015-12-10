@@ -17,12 +17,6 @@ var AppView = Backbone.View.extend({
       this.playerView.setSong(model.get('currentSong'));
     }, this);
 
-    this.model.on('change:songQueue', function(model){
-      console.log(model.get('songQueue'), "Song Queue");
-      // it reaches into the songQueue and gets the current array of enqueued song objects
-      // should then... call some sort of render to put them on page?
-      this.songQueueView.setQueue(model.get('songQueue'));
-    }, this);
   },
 
   render: function(){

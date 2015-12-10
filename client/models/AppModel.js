@@ -33,7 +33,14 @@ var AppModel = Backbone.Model.extend({
     }, this);
 
     params.library.on('enqueue', function(song) {
-      this.set('songQueue', song);
+      // this.set('songQueue', song); this sorta worked but only consdiered one at a time and didn't add to songQueue
+      // http://backbonejs.org/#Collection-add
+      this.get('songQueue').add(song);
+      // songQueue.add(song);
+
+      console.log(this.get('songQueue'), "Getting the song songQueue");
+      // the below line about collection add was originally in songQueueView in the setQueue function above render
+      // this.collection.add(song);
     }, this);
   }
 

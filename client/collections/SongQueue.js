@@ -18,6 +18,13 @@ var SongQueue = Songs.extend({
     }, this);
   },
 
+  addSongToQueue: function(song) {
+    this.on('enqueue', function(song) {
+      this.collection.add(song);
+    });
+  },
+
+  // this is a fake function to make Mocha happy
   playFirst: function() {
     this.on('enqueue', function(song) {
       this.set('currentSong', song);
