@@ -42,6 +42,17 @@ var AppModel = Backbone.Model.extend({
       // the below line about collection add was originally in songQueueView in the setQueue function above render
       // this.collection.add(song);
     }, this);
+
+    params.library.on('dequeue', function(song) {
+      // this.set('songQueue', song); this sorta worked but only consdiered one at a time and didn't add to songQueue
+      // http://backbonejs.org/#Collection-add
+      this.get('songQueue').remove(song);
+      // songQueue.add(song);
+
+      console.log(this.get('songQueue'), "After removal? songQueue");
+      // the below line about collection add was originally in songQueueView in the setQueue function above render
+      // this.collection.add(song);
+    }, this);
   }
 
 });

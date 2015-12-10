@@ -3,7 +3,9 @@ var PlayerView = Backbone.View.extend({
 
   // HTML5 (native) audio tag is being used
   // see: https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_HTML5_audio_and_video
-  el: '<audio controls autoplay />',
+  // http://stackoverflow.com/questions/9346579/how-can-i-tell-when-an-html5-audio-element-has-finished-playing
+  // this.model.play();
+  el: '<audio controls autoplay onended="console.log(\'song over\');" />',
 
   initialize: function() {
   },
