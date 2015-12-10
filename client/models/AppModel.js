@@ -5,6 +5,7 @@ var AppModel = Backbone.Model.extend({
     // set "sets a hash of attributes on the current model", if any of them change, or if they change the model's state, it triggers a change event on that model
     // this is where currentSong and songQueue first appear
     this.set('currentSong', new SongModel());
+    // songQueue starts as an empty array, it is a property on appModel, which in this case is app
     this.set('songQueue', new SongQueue());
 
     /* Note that 'this' is passed as the third argument. That third argument is
@@ -27,6 +28,10 @@ var AppModel = Backbone.Model.extend({
       // the third parameter, below, is the 'this' that the appmodel stuff will be using
       // refers to the app, its attributes, probably
     }, this);
+
+    params.library.on('enqueue', function(song) {
+      this.set('songQueue', song);
+    });
   }
 
 });

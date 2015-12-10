@@ -23,10 +23,11 @@
 
 
     <script>
-    // Is this function invoked?
       $(function(){
         // set up model objects
         var library = new Songs(songData);
+        var queue = new SongQueue(songData);
+
         var app = new AppModel({library: library});
 
         // build a view for the top level of the whole app

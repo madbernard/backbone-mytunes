@@ -1,3 +1,8 @@
+//When fetching raw JSON data from an API, a Collection will automatically populate itself with data formatted as an array, while a Model will automatically populate itself with data formatted as an object:
+
+// [{"id": 1}] ..... populates a Collection with one model.
+// {"id": 1} ....... populates a Model with one attribute.
+
 // SongQueue.js - Defines a backbone model class for the song queue.
 var SongQueue = Songs.extend({
 
