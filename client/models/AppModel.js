@@ -1,6 +1,7 @@
 // App.js - Defines a backbone model class for the whole app.
 var AppModel = Backbone.Model.extend({
-
+  // we need params because we are passing information that BB doesn't know what to do with
+  // specific to the mytunes app
   initialize: function(params) {
     // set "sets a hash of attributes on the current model", if any of them change, or if they change the model's state, it triggers a change event on that model
     // this is where currentSong and songQueue first appear
@@ -16,6 +17,8 @@ var AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
 
     // play comes from SongModel.js (by way of library, which is a Songs collection)
+    // this.trigger('play', this);
+    // the keyword this from the song, becomes the song here
     params.library.on('play', function(song) {
       this.set('currentSong', song);
       // the third parameter, below, is the 'this' that the appmodel stuff will be using
@@ -31,7 +34,7 @@ var AppModel = Backbone.Model.extend({
 
     params.library.on('enqueue', function(song) {
       this.set('songQueue', song);
-    });
+    }, this);
   }
 
 });
