@@ -21,38 +21,33 @@ var AppModel = Backbone.Model.extend({
     // the keyword this from the song, becomes the song here
     params.library.on('play', function(song) {
       this.set('currentSong', song);
+      console.log("listens in appmodel for play event on library");
+
       // the third parameter, below, is the 'this' that the appmodel stuff will be using
       // refers to the app, its attributes, probably
     }, this);
 
-    params.library.on('ended', function(song) {
-      // I think 'current song' is not what we'll want here, eventually
-      this.set('currentSong', song);
+    this.get('songQueue').on('stop', function() {
+      this.set('currentSong', null);
+      console.log(this, "set song to null in appmodel");
+
       // the third parameter, below, is the 'this' that the appmodel stuff will be using
       // refers to the app, its attributes, probably
     }, this);
 
     params.library.on('enqueue', function(song) {
-      // this.set('songQueue', song); this sorta worked but only consdiered one at a time and didn't add to songQueue
-      // http://backbonejs.org/#Collection-add
       this.get('songQueue').add(song);
-      // songQueue.add(song);
+      // forcing a trigger
+      this.get('songQueue').trigger('enqueue', song);
 
       console.log(this.get('songQueue'), "Getting the song songQueue");
-      // the below line about collection add was originally in songQueueView in the setQueue function above render
-      // this.collection.add(song);
     }, this);
 
-    params.library.on('dequeue', function(song) {
-      // this.set('songQueue', song); this sorta worked but only consdiered one at a time and didn't add to songQueue
-      // http://backbonejs.org/#Collection-add
-      this.get('songQueue').remove(song);
-      // songQueue.add(song);
+    // params.library.on('dequeue', function(song) {
+    //   this.get('songQueue').remove(song);
 
-      console.log(this.get('songQueue'), "After removal? songQueue");
-      // the below line about collection add was originally in songQueueView in the setQueue function above render
-      // this.collection.add(song);
-    }, this);
+    //   console.log(this.get('songQueue'), "After removal? songQueue");
+    // }, this);
   }
 
 });

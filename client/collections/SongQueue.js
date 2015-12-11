@@ -6,31 +6,40 @@
 // SongQueue.js - Defines a backbone model class for the song queue.
 var SongQueue = Songs.extend({
 
-  initialize: function(){
-    // in normal JS, we would put here a property with some key and then the value would be a holder (some kind of queue)
-    // probably we don't need a property because this is already a collection of SongModels
-    // but it does need methods that report on changes in the songModels
-    // report when song is
-    this.on('enqueue', function(song) {
-      this.set('currentSong', song);
-      // the third parameter, below, is the 'this' that the appmodel stuff will be using
-      // refers to the app, its attributes, probably
+  initialize: function() {
+    console.log("SongQueue has initialized");
+    window.queue = this;
+
+    this.on('ended dequeue', function() {
+      this.songEnded();
+    }, this);
+
+    // this.on('enqueue', this.playFirst(), this);
+    this.on('enqueue', function() {
+      // console.log(this, "initilize listener for enqueue");
+      this.playFirst();
     }, this);
   },
 
-  addSongToQueue: function(song) {
-    this.on('enqueue', function(song) {
-      this.collection.add(song);
-    });
+// http://backbonejs.org/#Events-once
+
+  songEnded: function() {
+    this.shift();
+
+    if (this.length > 0) {
+      this.playFirst();
+    } else {
+      // this.get('songQueue').trigger('enqueue', song);
+      this.trigger('stop');
+      // this.at(0).play();
+    }
   },
 
-  // this is a fake function to make Mocha happy
   playFirst: function() {
-    this.on('enqueue', function(song) {
-      this.set('currentSong', song);
-      // the third parameter, below, is the 'this' that the appmodel stuff will be using
-      // refers to the app, its attributes, probably
-    }, this);
+    console.log(this.at(0), "this is the at 0");
+    this.at(0).play();
+    // app.get('library').at(0).play()
+    console.log("SongQueue: playFirst working");
   }
 
 });
