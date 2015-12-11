@@ -4,7 +4,7 @@ var SongQueueEntryView = Backbone.View.extend({
 
   template: _.template('<td>(<%= artist %>)</td><td><%= title %></td>'),
 
-  // if they click on a thing in the library, the thing gets added to teh queue
+  // if they click on a thing in the library, the thing gets added to the queue
   // if they click on a thing in the queue "when a song is dequeued, removes the song"
   events: {
     'click': function() {

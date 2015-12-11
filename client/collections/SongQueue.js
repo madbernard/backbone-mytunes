@@ -7,7 +7,6 @@
 var SongQueue = Songs.extend({
 
   initialize: function() {
-    console.log("SongQueue has initialized");
     window.queue = this;
 
     this.on('ended dequeue', function() {
@@ -20,8 +19,6 @@ var SongQueue = Songs.extend({
       this.playFirst();
     }, this);
   },
-
-// http://backbonejs.org/#Events-once
 
   songEnded: function() {
     this.shift();
@@ -36,10 +33,7 @@ var SongQueue = Songs.extend({
   },
 
   playFirst: function() {
-    console.log(this.at(0), "this is the at 0");
     this.at(0).play();
-    // app.get('library').at(0).play()
-    console.log("SongQueue: playFirst working");
   }
 
 });

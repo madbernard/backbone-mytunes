@@ -17,37 +17,24 @@ var AppModel = Backbone.Model.extend({
     getting called from the window (unless we override it, as we do here). */
 
     // play comes from SongModel.js (by way of library, which is a Songs collection)
-    // this.trigger('play', this);
     // the keyword this from the song, becomes the song here
     params.library.on('play', function(song) {
       this.set('currentSong', song);
-      console.log("listens in appmodel for play event on library");
-
       // the third parameter, below, is the 'this' that the appmodel stuff will be using
       // refers to the app, its attributes, probably
     }, this);
 
     this.get('songQueue').on('stop', function() {
       this.set('currentSong', null);
-      console.log(this, "set song to null in appmodel");
-
-      // the third parameter, below, is the 'this' that the appmodel stuff will be using
-      // refers to the app, its attributes, probably
+      // the 'this' immediately above is appModel because of setting the this on the line immediately below
     }, this);
 
     params.library.on('enqueue', function(song) {
       this.get('songQueue').add(song);
-      // forcing a trigger
+      // forcing a trigger because songQueue has no songs in it to listen to, at first
       this.get('songQueue').trigger('enqueue', song);
-
-      console.log(this.get('songQueue'), "Getting the song songQueue");
     }, this);
 
-    // params.library.on('dequeue', function(song) {
-    //   this.get('songQueue').remove(song);
-
-    //   console.log(this.get('songQueue'), "After removal? songQueue");
-    // }, this);
   }
 
 });
